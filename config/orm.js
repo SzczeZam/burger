@@ -21,21 +21,23 @@ function objToSql(obj) {
 
 var orm = {
     selectAll: function(tableInp, cb){
-        var queryString = "SELECT * FROM ? ;"
-        connection.query(queryString,[tableInp],function(err, result){
+        var queryString = "SELECT * FROM ?? ;"
+        connection.query(queryString,[tableInp],function(err, res){
         if (err) {
-            return res.status(500).end
+            throw err
         }
-        cb(result)
+        cb(res)
 
         })
     },
 
     insertOne: function(table, col, val, cb){
-        var queryString = "INSERT INTO ?(?) VAlUES (?);" 
+
+      
+        var queryString = "INSERT INTO ??(??) VAlUES (?);" 
         connection.query(queryString,[table,col,val], function(err, result){
             if (err) {
-                return res.status(500).end
+               throw err
             }
             cb(result)
         })
@@ -50,7 +52,7 @@ var orm = {
 
         connection.query(queryString,function(err, result){
             if (err) {
-                return res.status(500).end
+                throw err
             }
             cb(result)
         })
